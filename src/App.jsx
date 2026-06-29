@@ -418,7 +418,26 @@ export default function App() {
 
   // ── ETAPPEN TAB ─────────────────────────────────────────────────────────────
 
-  const Etappen = () => (
+  const Etappen = () => {
+    const [local, setLocal] = useState({});
+
+    useEffect(() => {
+      setLocal({
+        train: stop.train || "",
+        hostel_name: stop.hostel.name || "",
+        hostel_room: stop.hostel.room || "",
+        hostel_address: stop.hostel.address || "",
+        hostel_checkin: stop.hostel.checkin || "",
+        hostel_checkout: stop.hostel.checkout || "",
+        math_name: stop.math?.name || "",
+        math_address: stop.math?.address || "",
+      });
+    }, [selectedId]);
+
+    const set = (key, val) => setLocal(p => ({ ...p, [key]: val }));
+    const save = (field, sub, key) => updateStop(stop.id, field, sub, local[key]);
+
+    return (
     <div style={{ display: "flex", gap: 16 }}>
       <CityNav stops={stops} selected={selectedId} onSelect={setSelectedId} />
       <div style={{ flex: 1, minWidth: 0 }}>
@@ -433,26 +452,26 @@ export default function App() {
 
           <div style={g.divider} />
           <div style={g.sTitle}>Zugverbindung</div>
-          <textarea style={{ ...g.ta, minHeight: 60 }} value={stop.train}
-            onChange={e => updateStop(stop.id, "train", null, e.target.value)} />
+          <textarea style={{ ...g.ta, minHeight: 60 }} value={local.train || ""}
+            onChange={e => { set("train", e.target.value); updateStop(stop.id, "train", null, e.target.value); }} />
 
           <div style={{ ...g.divider }} />
           <div style={g.sTitle}>Unterkunft</div>
           <div style={g.row}>
-            <div style={g.col}><label style={g.lbl}>Name</label><input style={g.inp} value={stop.hostel.name} onChange={e => updateStop(stop.id, "hostel", "name", e.target.value)} /></div>
-            <div style={g.col}><label style={g.lbl}>Zimmertyp</label><input style={g.inp} value={stop.hostel.room} onChange={e => updateStop(stop.id, "hostel", "room", e.target.value)} /></div>
+            <div style={g.col}><label style={g.lbl}>Name</label><input style={g.inp} value={local.hostel_name || ""} onChange={e => { set("hostel_name", e.target.value); updateStop(stop.id, "hostel", "name", e.target.value); }} /></div>
+            <div style={g.col}><label style={g.lbl}>Zimmertyp</label><input style={g.inp} value={local.hostel_room || ""} onChange={e => { set("hostel_room", e.target.value); updateStop(stop.id, "hostel", "room", e.target.value); }} /></div>
           </div>
-          <div style={{ marginTop: 10 }}><label style={g.lbl}>Adresse</label><input style={g.inp} value={stop.hostel.address} onChange={e => updateStop(stop.id, "hostel", "address", e.target.value)} /></div>
+          <div style={{ marginTop: 10 }}><label style={g.lbl}>Adresse</label><input style={g.inp} value={local.hostel_address || ""} onChange={e => { set("hostel_address", e.target.value); updateStop(stop.id, "hostel", "address", e.target.value); }} /></div>
           <div style={{ ...g.row, marginTop: 10 }}>
-            <div style={g.col}><label style={g.lbl}>Check-in</label><input style={g.inp} value={stop.hostel.checkin} onChange={e => updateStop(stop.id, "hostel", "checkin", e.target.value)} /></div>
-            <div style={g.col}><label style={g.lbl}>Check-out</label><input style={g.inp} value={stop.hostel.checkout} onChange={e => updateStop(stop.id, "hostel", "checkout", e.target.value)} /></div>
+            <div style={g.col}><label style={g.lbl}>Check-in</label><input style={g.inp} value={local.hostel_checkin || ""} onChange={e => { set("hostel_checkin", e.target.value); updateStop(stop.id, "hostel", "checkin", e.target.value); }} /></div>
+            <div style={g.col}><label style={g.lbl}>Check-out</label><input style={g.inp} value={local.hostel_checkout || ""} onChange={e => { set("hostel_checkout", e.target.value); updateStop(stop.id, "hostel", "checkout", e.target.value); }} /></div>
           </div>
 
           <div style={g.divider} />
           <div style={g.sTitle}>Mathematisches Institut / Gebäude</div>
           <div style={g.row}>
-            <div style={g.col}><label style={g.lbl}>Name</label><input style={g.inp} value={stop.math.name} onChange={e => updateStop(stop.id, "math", "name", e.target.value)} /></div>
-            <div style={g.col}><label style={g.lbl}>Adresse</label><input style={g.inp} value={stop.math.address} onChange={e => updateStop(stop.id, "math", "address", e.target.value)} /></div>
+            <div style={g.col}><label style={g.lbl}>Name</label><input style={g.inp} value={local.math_name || ""} onChange={e => { set("math_name", e.target.value); updateStop(stop.id, "math", "name", e.target.value); }} /></div>
+            <div style={g.col}><label style={g.lbl}>Adresse</label><input style={g.inp} value={local.math_address || ""} onChange={e => { set("math_address", e.target.value); updateStop(stop.id, "math", "address", e.target.value); }} /></div>
           </div>
 
           <div style={g.divider} />
