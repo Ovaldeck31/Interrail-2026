@@ -21,30 +21,36 @@ const T = {
 
 // Uni-Farben – wie Textmarker
 const UNI_COLORS = {
-  Berlin:     "#4f72ff", // Blau – Hauptstadt
-  Bonn:       "#c9933a", // Gold – Tradition
-  Heidelberg: "#7c4dff", // Violett – Älteste Uni
-  Karlsruhe:  "#00c9a7", // Grün – Technik/KIT
-  München:    "#e05a5a", // Rot – TUM-Energie
+  "FU Berlin": "#4f72ff", // Blau
+  "HU Berlin": "#2ea3e0", // Hellblau
+  "TU Berlin": "#1a5fb4", // Dunkelblau
+  Bonn:        "#c9933a", // Gold – Tradition
+  Heidelberg:  "#7c4dff", // Violett – Älteste Uni
+  Karlsruhe:   "#00c9a7", // Grün – Technik/KIT
+  München:     "#e05a5a", // Rot – TUM-Energie
 };
 
 const UNI_ABBR = {
-  Berlin:     "FU/HU/TU",
-  Bonn:       "UNI BONN",
-  Heidelberg: "HEIDELBERG",
-  Karlsruhe:  "KIT",
-  München:    "TUM",
+  "FU Berlin": "FU BERLIN",
+  "HU Berlin": "HU BERLIN",
+  "TU Berlin": "TU BERLIN",
+  Bonn:        "UNI BONN",
+  Heidelberg:  "HEIDELBERG",
+  Karlsruhe:   "KIT",
+  München:     "TUM",
 };
 
 const UNI_INST = {
-  Berlin:     "FU: Arnimallee 6 · HU: Unter den Linden 6 · TU: Straße des 17. Juni 136",
-  Bonn:       "Mathematikzentrum · Endenicher Allee 60, 53115 Bonn",
-  Heidelberg: "Mathematikon · Im Neuenheimer Feld 205, 69120 Heidelberg",
-  Karlsruhe:  "Kollegiengebäude Mathematik · Englerstraße 2, 76131 Karlsruhe",
-  München:    "TUM Department of Mathematics · Boltzmannstraße 3, 85748 Garching",
+  "FU Berlin": "Institut für Mathematik · Arnimallee 6, 14195 Berlin",
+  "HU Berlin": "Institut für Mathematik · Unter den Linden 6, 10099 Berlin",
+  "TU Berlin": "Institut für Mathematik · Straße des 17. Juni 136, 10623 Berlin",
+  Bonn:        "Mathematikzentrum · Endenicher Allee 60, 53115 Bonn",
+  Heidelberg:  "Mathematikon · Im Neuenheimer Feld 205, 69120 Heidelberg",
+  Karlsruhe:   "Kollegiengebäude Mathematik · Englerstraße 2, 76131 Karlsruhe",
+  München:     "TUM Department of Mathematics · Boltzmannstraße 3, 85748 Garching",
 };
 
-const CITIES = ["Berlin", "Bonn", "Heidelberg", "Karlsruhe", "München"];
+const CITIES = ["FU Berlin", "HU Berlin", "TU Berlin", "Bonn", "Heidelberg", "Karlsruhe", "München"];
 
 // ─── KRITERIEN ────────────────────────────────────────────────────────────────
 
@@ -205,7 +211,7 @@ const VIEWS = ["Übersicht", "Eingabe", "Radar", "Vergleich", "Tabelle"];
 export default function App() {
   const [mathData, setMathData] = useStorage("math_v1", {});
   const [view, setView] = useState(0);
-  const [activeCity, setActiveCity] = useState("Bonn");
+  const [activeCity, setActiveCity] = useState("FU Berlin");
   const [localInputs, setLocalInputs] = useState({});
 
   // Sync local inputs when city changes
@@ -267,10 +273,10 @@ export default function App() {
           Mathematik-Vergleich · Interrail 2026
         </div>
         <div style={{ fontSize: 26, fontWeight: 800, color: T.text, letterSpacing: "-0.5px", marginBottom: 4 }}>
-          5 Fakultäten im Vergleich
+          7 Fakultäten im Vergleich
         </div>
         <div style={{ fontSize: 13, color: T.muted }}>
-          Berlin · Bonn · Heidelberg · Karlsruhe · München
+          FU/HU/TU Berlin · Bonn · Heidelberg · Karlsruhe · München
         </div>
       </div>
 
@@ -552,7 +558,7 @@ export default function App() {
             Mathematik-Vergleich
           </div>
           <div style={{ fontSize: 10, color: T.muted, marginTop: 1, letterSpacing: "0.04em" }}>
-            Interrail 2026 · 5 Fakultäten
+            Interrail 2026 · 7 Fakultäten
           </div>
         </div>
         <div style={{ display: "flex", gap: 6 }}>
